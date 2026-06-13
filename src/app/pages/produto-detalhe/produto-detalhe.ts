@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
 import { Fakestore, Produto } from '../../services/fakestore';
@@ -13,7 +13,8 @@ import { Fakestore, Produto } from '../../services/fakestore';
 export class ProdutoDetalhe implements OnInit {
   private route = inject(ActivatedRoute);
   private service = inject(Fakestore);
-  
+  private cdr = inject(ChangeDetectorRef);
+
   produto: Produto | null = null;
   carregando = true;
 
@@ -23,8 +24,12 @@ export class ProdutoDetalhe implements OnInit {
       next: (p) => {
         this.produto = p;
         this.carregando = false;
+        this.cdr.detectChanges();
       },
-      error: () => this.carregando = false
+      error: () => {
+        this.carregando = false;
+        this.cdr.detectChanges();
+      }
     });
   }
 }

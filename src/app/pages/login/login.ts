@@ -1,7 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { Fakestore, Produto } from '../../services/fakestore';
+import { Fakestore } from '../../services/fakestore';
 
 @Component({
   selector: 'app-login',
@@ -10,10 +10,10 @@ import { Fakestore, Produto } from '../../services/fakestore';
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
-
 export class Login {
-private router = inject(Router);
+  private router = inject(Router);
   private service = inject(Fakestore);
+  private cdr = inject(ChangeDetectorRef);
 
   username = '';
   password = '';
@@ -27,20 +27,21 @@ private router = inject(Router);
     }
     this.carregando = true;
     this.erro = '';
-    // A API FakeStore aceita qualquer par de usuário/senha para teste,
-    // mas recomendo usar: username: "mor_2314", password: "83r5^_"
+    this.cdr.detectChanges();
+
     this.service.login(this.username, this.password).subscribe({
       next: (res) => {
-        // Salva token e um ID fictício (usuário fixo para teste: id=1)
         localStorage.setItem('token', res.token);
         localStorage.setItem('userId', '1');
         this.carregando = false;
         this.router.navigate(['/perfil']);
+        // não precisa de detectChanges aqui pois haverá navegação
       },
       error: () => {
         this.erro = 'Usuário ou senha inválidos. Tente: mor_2314 / 83r5^_';
         this.carregando = false;
-      }
+        this.cdr.detectChanges();
+      },
     });
   }
 }

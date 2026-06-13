@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Fakestore, Usuario } from '../../services/fakestore';
 
@@ -12,6 +12,7 @@ import { Fakestore, Usuario } from '../../services/fakestore';
 export class Perfil implements OnInit {
   private router = inject(Router);
   private service = inject(Fakestore);
+  private cdr = inject(ChangeDetectorRef);
 
   usuario: Usuario | null = null;
   carregando = true;
@@ -28,10 +29,12 @@ export class Perfil implements OnInit {
       next: (user) => {
         this.usuario = user;
         this.carregando = false;
+        this.cdr.detectChanges();
       },
       error: () => {
         this.erro = 'Erro ao carregar dados. Faça login novamente.';
         this.carregando = false;
+        this.cdr.detectChanges();
       },
     });
   }
