@@ -1,0 +1,38 @@
+.container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+.perfil-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+h2 {
+  color: #1B5E20;
+  margin-bottom: 1rem;
+}
+.dados p {
+  margin: 0.75rem 0;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+}
+.btn-sair {
+  background: none;
+  border: 1px solid #C62828;
+  color: #C62828;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+.btn-sair:hover {
+  background: #C62828;
+  color: white;
+}
+.loading, .erro {
+  text-align: center;
+  padding: 2rem;
+}

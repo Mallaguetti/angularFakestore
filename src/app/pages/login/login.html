@@ -1,1 +1,23 @@
-<p>login works!</p>
+<div class="container">
+  <div class="login-box">
+    <h2>Entrar na FakeStore</h2>
+    <p class="dica">Use: usuário <strong>mor_2314</strong>, senha <strong>83r5^_</strong></p>
+
+    <div class="campo">
+      <label>Usuário</label>
+      <input [(ngModel)]="username" type="text" placeholder="Seu usuário" />
+    </div>
+    <div class="campo">
+      <label>Senha</label>
+      <input [(ngModel)]="password" type="password" placeholder="Sua senha" />
+    </div>
+
+    @if (erro) {
+      <div class="erro">{{ erro }}</div>
+    }
+
+    <button (click)="fazerLogin()" [disabled]="carregando" class="btn-login">
+      {{ carregando ? 'Entrando...' : 'Entrar' }}
+    </button>
+  </div>
+</div>

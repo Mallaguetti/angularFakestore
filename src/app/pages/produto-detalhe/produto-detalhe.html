@@ -1,1 +1,23 @@
-<p>produto-detalhe works!</p>
+<div class="container">
+  <a routerLink="/" class="voltar">← Voltar</a>
+
+  @if (carregando) {
+    <div class="loading">Carregando...</div>
+  } @else if (produto) {
+    <div class="detalhe">
+      <div class="imagem">
+        <img [src]="produto.image" [alt]="produto.title" />
+      </div>
+      <div class="info">
+        <span class="categoria">{{ produto.category }}</span>
+        <h1>{{ produto.title }}</h1>
+        <div class="rating">⭐ {{ produto.rating.rate }} ({{ produto.rating.count }} avaliações)</div>
+        <div class="preco">{{ produto.price | currency:'BRL' }}</div>
+        <p class="descricao">{{ produto.description }}</p>
+        <button class="btn-comprar">Adicionar ao Carrinho</button>
+      </div>
+    </div>
+  } @else {
+    <div class="error">Produto não encontrado.</div>
+  }
+</div>

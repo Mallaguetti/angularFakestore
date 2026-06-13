@@ -1,1 +1,19 @@
-<p>perfil works!</p>
+<div class="container">
+  @if (carregando) {
+    <div class="loading">Carregando perfil...</div>
+  } @else if (erro) {
+    <div class="erro">{{ erro }}</div>
+  } @else if (usuario) {
+    <div class="perfil-card">
+      <h2>Meu Perfil</h2>
+      <div class="dados">
+        <p><strong>Nome:</strong> {{ usuario.name.firstname }} {{ usuario.name.lastname }}</p>
+        <p><strong>Email:</strong> {{ usuario.email }}</p>
+        <p><strong>Usuário:</strong> {{ usuario.username }}</p>
+        <p><strong>Telefone:</strong> {{ usuario.phone }}</p>
+        <p><strong>Endereço:</strong> {{ usuario.address.street }}, {{ usuario.address.number }}, {{ usuario.address.city }} - {{ usuario.address.zipcode }}</p>
+      </div>
+      <button (click)="logout()" class="btn-sair">Sair</button>
+    </div>
+  }
+</div>

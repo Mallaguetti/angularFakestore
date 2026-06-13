@@ -1,1 +1,27 @@
-<p>home works!</p>
+<div class="container">
+  <h1>Produtos em Destaque</h1>
+
+  @if (carregando) {
+    <div class="loading">Carregando produtos...</div>
+  }
+
+  @if (erro) {
+    <div class="error">{{ erro }}</div>
+  }
+
+  <div class="grid">
+    @for (produto of produtos; track produto.id) {
+      <a [routerLink]="['/produto', produto.id]" class="card">
+        <div class="img-box">
+          <img [src]="produto.image" [alt]="produto.title" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <span class="categoria">{{ produto.category }}</span>
+          <h3>{{ produto.title }}</h3>
+          <div class="preco">{{ produto.price | currency:'BRL' }}</div>
+          <div class="rating">⭐ {{ produto.rating.rate }} ({{ produto.rating.count }})</div>
+        </div>
+      </a>
+    }
+  </div>
+</div>
